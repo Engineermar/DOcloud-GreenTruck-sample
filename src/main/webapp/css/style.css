@@ -1,0 +1,188 @@
+.page-container {
+    margin: 50px auto;
+}
+
+body {
+	/*background-color : #EEFFF2;*/
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.btn {
+    border-radius: 0;
+}
+
+.indent {
+    margin-left: 23px;
+}
+
+/*               */
+/* Table styling */
+/*               */
+.table th {
+    color: #419641;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #F1F9F1;
+}
+
+.table > tbody td.edit {
+    padding: 0;
+    vertical-align: middle;
+}
+
+.table > tbody td.edit i {
+    color: #419641;
+}
+
+.table > tbody td.edit button {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border:1px solid transparent;
+    background: none;
+    padding: 2px 2px;
+}
+
+.table > tbody td.edit button:hover {
+    text-shadow: 2px 2px 2px #ccc;
+    /*font-size: 120%;*/
+    background: #F1F9F1;
+    border:1px solid #419641;
+}
+
+.table > tbody td.edit button[disabled='disabled'] i {
+    color: #DDDDDD;
+}
+
+.table > tbody td.edit button[disabled='disabled']:hover {
+    border:1px solid transparent;
+    text-shadow: none;
+}
+
+/*                */
+/*    Plan page   */
+/*                */
+.plan-toolbar {
+    vertical-align: middle;
+    clear: both;
+}
+
+.optimize-panel {
+    float: left;
+}
+
+.optimize-panel i {
+    vertical-align: middle;
+}
+
+
+.optimization-requested {
+    color: #72716E;
+}
+
+.optimize-panel div {
+    margin: 12px 0 0 30px;
+}
+
+/* Display progress while job is solving */
+.solve-progress {
+    vertical-align: top;
+    display: inline-block;
+    font-size: 16px;
+    padding: 0 0 6px 6px;
+}
+
+.solve-progress span {
+    color: #419641;
+}
+
+.solve-progress span:first-child {
+    color: #72716E;
+}
+
+/*                */
+/* Solution panel */
+/*                */
+.plan-solution {
+    float: right;
+    border-radius: 15px 15px 15px 15px;
+    -moz-border-radius: 15px 15px 15px 15px;
+    -webkit-border-radius: 15px 15px 15px 15px;
+    border: 2px solid #419641;
+    padding: 0 12px;
+    background: white;
+}
+
+/* Style the solution title */
+.plan-solution > div {
+    font-size: 27px;
+    padding: 30px 12px 0 0;
+    display: inline-block;
+    vertical-align: top;
+    color: #419641;
+}
+
+
+.plan-solution table {
+    border-left: 1px solid #383633;
+    padding-left: 23px;
+    display: inline-block;
+    margin-top: 8px;
+}
+
+.plan-solution table:first-of-type {
+    border-left: 1px solid transparent;
+    padding-left: 0;
+}
+
+.plan-solution table tr {
+    height: 25px;
+}
+
+.plan-solution table td:nth-child(even) {
+    color: #419641;
+    font-weight: bold;
+    padding: 0 30px 0 12px;
+}
+
+.plan-solution table td:nth-child(odd) {
+    text-align: right;
+    color: #72716E;
+    margin-right: 12px;
+}
+
+/*                */
+/*   Plan graph   */
+/*                */
+.graph-container {
+    clear: both;
+}
+.truck-graph-section-title {
+    color: rgb(31, 119, 180);
+    text-align: center;
+    border-bottom: 2px solid #ddd;
+    margin-top: 6px;
+    padding-bottom: 2px;
+}
+
+.truck-graph {
+    float: left;
+    text-align: center;
+}
+
+.graph-title {
+    font-size: 16px;
+    fill: rgb(31, 119, 180);
+}
+
+.node {
+    stroke: #fff;
+    stroke-width: 1.5px;
+}
+
+.link {
+    stroke: #999;
+    stroke-opacity: .6;
+}

@@ -1,0 +1,23 @@
+<section ng-controller="TruckTypesController">
+
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Type</th>
+            <th>Capacity</th>
+            <th>Cost Per Mile</th>
+            <th>Miles Per Hour</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="type in trucktypes">
+            <td>{{ type._id }} </td>
+            <td>{{ type.capacity }}</td>
+            <td>{{ type.costPerMile }}</td>
+            <td>{{ type.milesPerHour }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</section>

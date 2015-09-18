@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>GreenTruck</title>
+    <link rel="styleSheet" href="bower_components/bootstrap/dist/css/bootstrap.css" type="text/css" />
+    <link rel="styleSheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css" type="text/css" />
+    <link rel="styleSheet" href="bower_components/font-awesome/css/font-awesome.css" type="text/css" />
+    <link rel="styleSheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+<div id="wrapper">
+
+    <nav class="navbar navbar-default navbar-fixed-top container-fluid">
+        <div class="container-fluid">
+            <div class="navbar-header" >
+                <button type="button" data-toggle="collapse" data-target=".navbar-collapse" class=
+                        "navbar-toggle">
+                    <span class="sr-only">Toggle navigation</span>
+                </button><a href="/#!/" class="navbar-brand">
+                   <i class="fa fa-truck" style="color: #419641;"></i>
+                   GreenTruck
+                   </a>
+            </div>
+
+            <div class="navbar-collapse collapse" ng-controller="MenuController">
+                <ul class="nav navbar-nav">
+                    <li ng-class="{active: isPageSelected('trucktypes')}"><a href="#!/trucktypes">Trucks</a></li>
+                    <li ng-class="{active: isPageSelected('hubs')}"><a href="#!/hubs">Hubs</a></li>
+                    <li ng-class="{active: isPageSelected('spokes')}"><a href="#!/spokes">Spokes</a></li>
+                    <li ng-class="{active: isPageSelected('shipments')}"><a href="#!/shipments">Shipments</a></li>
+                    <li ng-class="{active: isPageSelected('plans')}"><a href="#!/plans">Plans</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li ng-class="{active: isPageSelected('admin')}"><a href="#!/admin">Admin</a></li>
+                </ul>
+            </div>
+        </div>
+	</nav>
+	
+	
+	
+     <div id="page-wrapper">
+         <div class="container-fluid">
+             <div class="row">
+                 <div class="col-lg-12">
+                     <div class="page-container">  
+                     	 <div id="apierror">
+	    					<div ng-include="'apierror.html'"/>
+						 </div>                       
+                         <div ng-view=""></div>
+                     </div>
+                 </div>
+             </div>
+         </div>
+     </div>
+    
+    
+	
+</div>
+
+<script src="bower_components/jquery/dist/jquery.js" type="text/javascript"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
+<script src="bower_components/angular/angular.js" type="text/javascript"></script>
+<script src="bower_components/angular-route/angular-route.js" type="text/javascript"></script>
+<script src="bower_components/angular-smart-table/dist/smart-table.js" type="text/javascript"></script>
+<script src="bower_components/d3/d3.js"></script>
+<script src="bower_components/angular-websocket/angular-websocket.js"></script>
+
+<script src="trucks/trucks.module.js" type="text/javascript"></script>
+<script src="trucks/routes/trucks.routes.js" type="text/javascript"></script>
+<script src="trucks/controllers/hubs.controller.js" type="text/javascript"></script>
+<script src="trucks/controllers/plans.controller.js" type="text/javascript"></script>
+<script src="trucks/controllers/shipments.controller.js" type="text/javascript"></script>
+<script src="trucks/controllers/spokes.controller.js" type="text/javascript"></script>
+<script src="trucks/controllers/trucktypes.controller.js" type="text/javascript"></script>
+<script src="trucks/controllers/admin.controller.js" type="text/javascript"></script>
+
+<script src="application.js" type="text/javascript"></script>
+
+</body>
+</html>

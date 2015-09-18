@@ -1,0 +1,50 @@
+<h1>
+IBM DOcloud GreenTruck Sample
+</h1>
+
+<h2>
+Optimization Problem
+</h2>
+<p>
+A shipping company has a hub and spoke system. The shipments to be
+delivered are specified by an originating spoke, a destination spoke,
+and a shipment volume. The trucks have different types defined by a
+maximum capacity, a speed, and a cost per mile. The model is to assign
+right number of trucks to each route in order to minimize the cost of
+transshipment and meet the volume requirements. There is a minimum
+departure time and a maximum return time for trucks at a spoke, and an
+load and unload time at the hub. Trucks of different types travel in
+different speeds. Therefore, shipments are available at each hub in a
+timely manner. Volume availability constraints are considered, that
+is,the shipments that will be carried back from a hub to a spoke by a
+truck must be available for loading before the truck leaves.
+</p>
+
+<p>
+The assumptions are:
+<ul>
+<li> exactly the same number of trucks that go from spoke to hub return from hub
+  to spoke;</li>
+<li>each truck arrives at a hub as early as possible and leaves as late as
+  possible; and </li>
+<li>the shipments can be broken arbitrarily into smaller packages and
+  shipped through different paths.
+  </li>
+  </ul>
+</p>
+
+
+<h2>
+Architecture
+</h2>
+<p>
+This sample shows how to build a simple web application that integrates with IBM DOcloud services:
+<ul>
+<li>The webserver is written in Java and leverages the IBM Websphere Liberty runtime.</li>
+<li>The client uses the AngularJS framework to create simple pages and interact with the server using custom REST APIs.</li>
+<li>The data is stored into a MongoDB JSON datastore.</li>
+<li>The data and results are streamed back and forth between DOcloud and the MongoDB datastore.</li>
+<li>There is a single DOcloud job running at the same time, and a single solution stored in the database</li>
+<li>Websockets are used to update the clients in real time of job submission and solution availability.</li>
+</ul>
+</p>

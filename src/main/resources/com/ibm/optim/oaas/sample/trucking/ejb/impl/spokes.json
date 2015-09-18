@@ -1,0 +1,6 @@
+{ "_id" : "A", "minDepTime" : 360, "maxArrTime" : 1080 }
+{ "_id" : "B", "minDepTime" : 400, "maxArrTime" : 1150 }
+{ "_id" : "C", "minDepTime" : 380, "maxArrTime" : 1200 }
+{ "_id" : "D", "minDepTime" : 340, "maxArrTime" : 900 }
+{ "_id" : "E", "minDepTime" : 420, "maxArrTime" : 800 }
+{ "_id" : "F", "minDepTime" : 370, "maxArrTime" : 1070 }

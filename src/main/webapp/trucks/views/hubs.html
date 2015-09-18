@@ -1,0 +1,22 @@
+<section ng-controller="HubsController">
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Routes</th>   
+          <th>Load Times</th>        
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="hub in hubs">
+            <td>{{ hub._id }} </td>
+            <td>{{ hub | formatRoutes }}</td>
+            <td>{{ hub | formatLoadtimes }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+    
+
+</section>

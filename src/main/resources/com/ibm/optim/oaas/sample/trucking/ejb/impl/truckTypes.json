@@ -1,0 +1,2 @@
+{ "_id" : "BigTruck", "capacity" : 700, "costPerMile" : 15, "milesPerHour" : 45 }
+{ "_id" : "SmallTruck", "capacity" : 400, "costPerMile" : 10, "milesPerHour" : 55 }

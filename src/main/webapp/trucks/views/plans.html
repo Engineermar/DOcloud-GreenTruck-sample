@@ -1,0 +1,111 @@
+<section ng-controller="PlansController">
+
+<div class="plan-toolbar">
+
+ </div>
+
+    <div ng-if="solution" class="plan-solution">
+        <div class="status-title">Solution</div>
+        <table>
+            <tr><td>Job ID</td><td>{{solution.jobid}}</td></tr>
+            <tr><td>Solve status</td><td>{{solution.solveStatus}}</td></tr>
+            <tr><td>Solution cost</td><td>{{solution.cost}}</td></tr>
+        </table>
+        <table>
+            <tr><td>Duration</td><td>{{solution.duration}} seconds</td></tr>
+            <tr><td>Ended at</td><td>{{solution.endedAt | date : medium}}</td></tr>
+        </table>
+    </div>
+
+    <div class="optimize-panel">
+        <i class="fa fa-cog fa-2x" ng-class="{'fa-spin':status.requested}"></i>&nbsp;<button id='optimizePlan' ng-click="optimize()" class="btn btn-success" ng-disabled="status.requested">Optimize</button>
+        <button id='deletePlan' ng-click="deletePlan()" class="btn btn-success" ng-disabled="!solution">Delete</button>
+        <div ng-if="status.requested">
+            <span>Optimization requested</span>
+            <span class="solve-progress" ng-class="{'active':status.requested}">
+                <span ng-if="status.jobStatus=='CREATED'">job created</span>
+                <span ng-if="status.jobStatus=='NOT_STARTED'">job pending</span>
+                <span ng-if="status.jobStatus=='RUNNING'">job running</span>
+                <span ng-if="status.jobStatus=='PROCESSED'">job processed</span>
+                <span ng-if="status.jobStatus=='FAILED'">job failed</span>
+            </span>
+        </div>
+    </div>
+
+ <div> 	 
+	   <table st-table="displayedTrucks" st-safe-src="solution.trucks" class="table table-striped">
+         <thead>
+         <tr>
+             <th>Spoke</th>
+             <th>Hub</th>
+             <th>Truck</th>
+             <th>Nb Trucks</th>
+         </tr>
+         </thead>
+         <tbody>
+         <tr ng-repeat="s in displayedTrucks">
+             <td>{{ s.spoke }} </td>
+             <td>{{ s.hub }}</td>
+             <td>{{ s.truckType }}</td>
+             <td>{{ s.nbTruck }}</td>
+         </tr>
+         </tbody>
+         <tfoot>
+             <tr>
+                 <td colspan="4" class="text-center">
+                     <div st-pagination="" st-items-by-page="9" st-displayed-pages="7"></div>
+                 </td>
+             </tr>
+         </tfoot>
+     </table>
+  </div>
+
+<div ng-if="solution" class="graph-container">
+    <!-- Plan graphs -->
+    <h4 class="truck-graph-section-title">Truck routes</h4>
+    <svg class="truck-graph" ng-attr-width="{{graph.width}}"
+         ng-attr-height="{{graph.height}}">
+        <text class="graph-title" x="5" y="20" text-anchor="start" alignment-baseline="hanging">Small Trucks</text>
+        <line   ng-repeat="link in graph.links | filter: { truckType: 'SmallTruck' }"
+                class="link"
+                ng-attr-stroke-width="{{link.strokeWidth}}"
+                ng-attr-x1="{{link.source.x}}"
+                ng-attr-y1="{{link.source.y}}"
+                ng-attr-x2="{{link.target.x}}"
+                ng-attr-y2="{{link.target.y}}">
+        </line>
+        <circle ng-repeat="node in graph.nodes"
+                class="node"
+                ng-attr-r="{{node.size}}"
+                ng-attr-fill="{{node.color}}"
+                ng-attr-cx="{{node.x}}"
+                ng-attr-cy="{{node.y}}">
+        </circle>
+        <text ng-repeat="node in graph.nodes" ng-attr-x="{{node.x}}"
+              ng-attr-y="{{node.y + 3}}" text-anchor="middle">{{node.name}}</text>
+    </svg>
+
+    <svg class="truck-graph" ng-attr-width="{{graph.width}}"
+         ng-attr-height="{{graph.height}}">
+        <text class="graph-title" x="5" y="20" text-anchor="start" alignment-baseline="hanging">Big Trucks</text>
+        <line   ng-repeat="link in graph.links | filter: { truckType: 'BigTruck' }"
+                class="link"
+                ng-attr-stroke-width="{{link.strokeWidth}}"
+                ng-attr-x1="{{link.source.x}}"
+                ng-attr-y1="{{link.source.y}}"
+                ng-attr-x2="{{link.target.x}}"
+                ng-attr-y2="{{link.target.y}}">
+        </line>
+        <circle ng-repeat="node in graph.nodes"
+                class="node"
+                ng-attr-r="{{node.size}}"
+                ng-attr-fill="{{node.color}}"
+                ng-attr-cx="{{node.x}}"
+                ng-attr-cy="{{node.y}}">
+        </circle>
+        <text ng-repeat="node in graph.nodes" ng-attr-x="{{node.x}}"
+              ng-attr-y="{{node.y + 3}}" text-anchor="middle">{{node.name}}</text>
+    </svg>
+ </div>
+ 
+</section>

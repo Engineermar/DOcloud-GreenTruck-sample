@@ -1,0 +1,21 @@
+<section ng-controller="SpokesController">
+
+        <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Name</th>
+          	<th>Min Departure Time</th>   
+          	<th>Max Arrival Time</th>    
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="spoke in spokes">
+            <td>{{ spoke._id }} </td>
+            <td>{{ spoke.minDepTime }}</td>
+            <td>{{ spoke.maxArrTime }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</section>

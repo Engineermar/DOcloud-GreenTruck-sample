@@ -1,0 +1,64 @@
+<section ng-controller="ShipmentsController">
+
+    <p>
+        <button class="btn btn-success" ng-click="addShipment()"><i class="fa fa-plus"></i>&nbsp;Add shipment</button>
+    </p>
+    
+    <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Origin</th>
+          <th>Destination</th>   
+          <th>Total Volume</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="shipment in shipments">
+            <td>
+                <span ng-if="!isEditingShipment(shipment)">{{ shipment.origin }}</span>
+                <div ng-if="isEditingShipment(shipment)" ng-class="{ 'has-error': !isValidSpoke(shipment.origin) || (shipment.destination == shipment.origin) }">
+                    <input class="form-control" type="text" ng-model="shipment.origin" has-error/>
+                    <small class="control-label" ng-show="!isValidSpoke(shipment.origin)">Origin must be a valid spoke: {{validSpokes.join(', ')}}</small>
+                    <small class="control-label" ng-show="shipment.destination == shipment.origin">
+                        Cannot specify the same spoke as destination and origin</small>
+                </div>
+            </td>
+            <td>
+                <span ng-if="!isEditingShipment(shipment)">{{ shipment.destination }}</span>
+                <div ng-if="isEditingShipment(shipment)" ng-class="{ 'has-error': !isValidSpoke(shipment.destination) || (shipment.destination == shipment.origin) || isDuplicateRoute(shipment)}">
+                    <input class="form-control" type="text" ng-model="shipment.destination" />
+                    <small class="control-label" ng-show="!isValidSpoke(shipment.destination)">
+                               Destination must be a valid spoke: {{validSpokes.join(', ')}}</small>
+                    <small class="control-label" ng-show="shipment.destination == shipment.origin">
+                        Cannot specify the same spoke as destination and origin</small>
+                    <small class="control-label" ng-show="isDuplicateRoute(shipment)">
+                        Route duplicate: cannot specify same origin and destination than other shipments.</small>
+                </div>
+            </td>
+            <td>
+                <span ng-if="!isEditingShipment(shipment)">{{ shipment.totalVolume }}</span>
+                <div ng-if="isEditingShipment(shipment)"  ng-class="{ 'has-error': !isValidVolume(shipment.totalVolume) }">
+                    <input class="form-control" type="text" ng-model="shipment.totalVolume" />
+                    <small class="control-label" ng-show="!isValidVolume(shipment.totalVolume)">A value greater than 0 must be specified.</small>
+                </div>
+            </td>
+            <td class="edit">
+                <div ng-if="!isEditingShipment(shipment)">
+                    <button ng-click="startEditShipment(shipment)" ng-disabled="getEditedShipment()"><i class="fa fa-pencil"></i></button>
+                    &nbsp;
+                    <button ng-click="removeShipment(shipment, $index)" ng-disabled="getEditedShipment()"><i class="fa fa-times"></i></button>
+                </div>
+                <div ng-if="isEditingShipment(shipment)">
+                    <a href="" class="btn btn-success btn-xs" ng-click="cancelShipmentEdit(shipment)">Cancel</a>
+                    &nbsp;
+                    <a href="" class="btn btn-success btn-xs" ng-click="applyShipmentEdit(shipment)"
+                       ng-disabled="!isValidSpoke(shipment.origin) || !isValidSpoke(shipment.destination) || !isValidVolume(shipment.totalVolume)">Save</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    
+
+</section>
