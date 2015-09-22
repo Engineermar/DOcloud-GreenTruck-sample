@@ -128,6 +128,7 @@ will be deployed to `greentruck-mike.mybluemix.net`. To do so, declare a propert
     <activeByDefault>true</activeByDefault>
   </activation>
   <properties>
+    <cf.org>...</cf.org>
     <cf.urlQualifier>...</cf.urlQualifier>
   </properties>
 </profile>
@@ -167,6 +168,12 @@ and deploy to Bluemix in one simple command:
 
 ```
 mvn deploy
+```
+
+If you want to deploy without running the tests locally (MongoDB is then not necessary locally), then deploy to Bluemix
+with this command:
+```
+mvn deploy -DskipTests
 ```
 
 ## Dependencies
