@@ -1,0 +1,9 @@
+{
+	"provider": ["IBM"], 
+	"name":  "DOcloud GreenTruck sample" ,
+	"model": [ "OPL-CPLEX" ],
+	"development": [ "Java" ],
+	"category": [ {"APPLICATION":["Web Application"]} ],
+	"industry": [ "Transportation" ],
+	"abstract": "The Python client samples demonstrate how to use the Python client to submit a problem to the IBM Decision Optmization on Cloud service."
+}
