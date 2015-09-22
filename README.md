@@ -59,6 +59,9 @@ Once installed, you can check that it is accessible using this command:
 ```
 mvn --version
 ```
+In the following steps, you will need to edit the maven setting file located at `~/.m2/settings.xml`.
+If you do not have this file already, a default one is provided in this repository (see file`settings.xml`), 
+so that you can copy it to this location and fill out the placeholders as requested below.
 
 5- Install [MongoDB](http://docs.mongodb.org/manual/installation/).
 Once installed, you can check that it is accessible using this command:

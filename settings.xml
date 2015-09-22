@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<settings
+        xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"
+        xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <servers>
+        <server>
+            <id>bluemix_prod</id>
+            <username>...</username>
+            <password>...</password>
+        </server>
+    </servers>
+
+    <profiles>
+        <profile>
+            <id>bluemix</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <cf.org>...</cf.org>
+                <cf.urlQualifier>...</cf.urlQualifier>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>docloud</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <docloud.baseurl>...</docloud.baseurl>
+                <docloud.apikey.clientid>...</docloud.apikey.clientid>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>wlp</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <wlp.licenseCode>...</wlp.licenseCode>
+            </properties>
+        </profile>
+    </profiles>
+</settings>
+
+
+
