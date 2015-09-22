@@ -137,6 +137,9 @@ will be deployed to `greentruck-mike.mybluemix.net`. To do so, declare a propert
 </profile>
 ```
 
+Finally, in your Bluemix dashbard, click on `Create a Space` and call it `demo`. The application will be deployed in this
+space.
+
 ### Build
 
 1- Download frontend dependencies.
