@@ -203,6 +203,8 @@ mvn deploy -DskipTests
 * om.ibm.optim.oaas:api_java_client
 * javax:javaee-api
 * com.wordnik:swagger-jaxrs_2.10
+* org.apache.httpcomponents
+* com.ibm.icu
 
 
 ## License
