@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<server description="new server">
+    <!-- Enable features -->
+    <featureManager>
+    	<feature>mongodb-2.0</feature>
+		<feature>ejbLite-3.1</feature>
+        <feature>concurrent-1.0</feature>
+        <feature>jaxrs-1.1</feature>
+        <feature>json-1.0</feature>
+        <feature>localConnector-1.0</feature>
+        <feature>jsf-2.0</feature>        
+        <feature>websocket-1.0</feature>
+    </featureManager>
+
+	<include location='runtime-vars.xml'/>
+	
+    <logging consoleLogLevel="INFO"></logging>
+    
+    <managedExecutorService jndiName="concurrent/docloud"/>
+
+    <managedScheduledExecutorService jndiName="concurrent/monitor"/>
+    
+    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
+
+	<library id="mongo-lib">
+		 <fileset dir='${server.config.dir}/lib' id='mongo-fileset' 
+	           includes='mongo-java-driver.jar'/>   
+	</library>
+	
+    <mongo id="mongo-greentruck" libraryRef="mongo-lib" user="${cloud.services.mongo-greentruck.connection.user}" password="${cloud.services.mongo-greentruck.connection.password}">
+        <hostNames>${cloud.services.mongo-greentruck.connection.hosts}</hostNames>
+        <ports>${cloud.services.mongo-greentruck.connection.ports}</ports>
+    </mongo>
+    <mongoDB databaseName="trucking" jndiName="mongo/truckingDB" mongoRef="mongo-greentruck"/>
+
+  <application id="greentruck" location="greentruck.war" name="greentruck" type="war" context-root="/" >
+    <classloader commonLibraryRef="mongo-lib"/>
+   </application>
+    
+    
+</server>
