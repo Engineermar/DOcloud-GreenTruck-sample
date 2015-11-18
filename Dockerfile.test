@@ -1,0 +1,60 @@
+# Creates a docker image to test the sample.
+# The created image contains all the dependencies to compile and run the sample, 
+# including Node, Bower, MongoDB, and the DOcloud client libraries.
+# 1. create a new local directory
+# 2. copy the Dockerfile form the github repository to the local directory 
+# 3. copy the settings.xml file from the github repositiry and fill out the placeholders as explained in the readme
+# 4. build the image: docker build -t greentruck .
+# 5. run the image: docker run -i -t greentruck bash
+# 6. in the shell of the image, start mongodb deamon in the background: mongod &
+# 7. in the shell of the image, execute a maven target such as: mvn package, or mv install or mvn deploy
+
+FROM maven:3.3-jdk-7
+MAINTAINER mjaczyns@us.ibm.com
+
+#install Node and Bower
+RUN apt-get update
+RUN apt-get install -y nodejs nodejs-legacy npm
+RUN npm install -g bower
+RUN apt-get clean
+
+#install MongoDB
+RUN apt-key adv --keyserver ha.pool.sks-keyservers.net --recv-keys 492EAFE8CD016A07919F1D2B9ECBEC467F0CEB10
+ENV MONGO_MAJOR 3.0
+ENV MONGO_VERSION 3.0.7
+RUN echo "deb http://repo.mongodb.org/apt/debian wheezy/mongodb-org/$MONGO_MAJOR main" > /etc/apt/sources.list.d/mongodb-org.list
+RUN set -x \
+	&& apt-get update \
+	&& apt-get install -y \
+		mongodb-org=$MONGO_VERSION \
+		mongodb-org-server=$MONGO_VERSION \
+		mongodb-org-shell=$MONGO_VERSION \
+		mongodb-org-mongos=$MONGO_VERSION \
+		mongodb-org-tools=$MONGO_VERSION \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& rm -rf /var/lib/mongodb \
+	&& mv /etc/mongod.conf /etc/mongod.conf.orig
+RUN mkdir -p /data/db
+VOLUME /data/db
+
+# Get DOcloud client lib
+RUN wget https://api-swagger-oaas.docloud.ibmcloud.com/api_swagger/lib/docloud_java_api-all_jars.zip
+RUN unzip docloud_java_api-all_jars.zip
+RUN mvn install:install-file -Dfile=docloud_java_api/docloud_api_java_client-1.0-STABLE-b65.jar -DgroupId=com.ibm.optim.oaas -DartifactId=api_java_client -Dversion=1.0-R1-SNAPSHOT -Dpackaging=jar
+
+# Get sample code
+WORKDIR /home
+RUN git clone https://github.com/IBMDecisionOptimization/DOcloud-GreenTruck-sample.git
+WORKDIR /home/DOcloud-GreenTruck-sample
+
+# Get Bower dependencies
+RUN bower install --allow-root
+
+# Update config
+COPY ./settings.xml /root/.m2/settings.xml
+
+
+
+
+
+
