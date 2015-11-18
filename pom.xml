@@ -227,6 +227,30 @@
 				</configuration>
 			</plugin>
 
+			
+			<!-- Replace server.xml for bluemix -->
+			<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-antrun-plugin</artifactId>
+			<version>1.6</version>
+			<executions>
+			  <execution>
+				<id>repack</id>
+				<phase>deploy</phase>
+				<goals>
+				  <goal>run</goal>
+				</goals>
+				<configuration>
+				  <target>
+					<unzip src="${project.build.directory}/${project.name}-server.zip" dest="${project.build.directory}/tmp"/>		
+					<copy overwrite="true" file="src/main/wlp/server-bluemix.xml" tofile="${project.build.directory}/tmp/wlp/usr/servers/defaultServer/server.xml"/>					
+					<zip basedir="${project.build.directory}/tmp" destfile="${project.build.directory}/${project.name}-server-bluemix.zip"/>					
+				  </target>
+				</configuration>
+			  </execution>
+			</executions>
+		  </plugin>
+  
 			<!-- Deploy to bluemix -->
 			<plugin>
 				<groupId>org.cloudfoundry</groupId>
@@ -242,11 +266,11 @@
 				</executions>
 				<configuration>
 					<server>bluemix_prod</server>
-					<target>https://api.ng.bluemix.net</target>
-					<url>greentruck-${cf.urlQualifier}.mybluemix.net</url>
+					<target>${cf.target}</target>
 					<appname>greentruck-${cf.urlQualifier}</appname>
-					<path>${project.build.directory}/${project.name}-server.zip</path>
-					<space>demo</space>
+					<url>greentruck-${cf.urlQualifier}.${cf.domain}</url>
+					<path>${project.build.directory}/${project.name}-server-bluemix.zip</path>
+					<space>${cf.space}</space>
 					<memory>512</memory>
 					<services>
 						<service>
@@ -259,8 +283,13 @@
 						</service>
 						<service>
 							<name>mongo-greentruck</name>
-							<label>mongolab</label>
-							<plan>sandbox</plan>
+							<label>user-provided</label>
+							<userProvidedCredentials>
+								<user>${mongo.user}</user>
+								<password>${mongo.password}</password>
+								<hosts>${mongo.hosts}</hosts>
+								<ports>${mongo.ports}</ports>
+							</userProvidedCredentials>
 						</service>
 					</services>
 				</configuration>

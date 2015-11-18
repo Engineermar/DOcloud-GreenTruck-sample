@@ -109,9 +109,32 @@ Then add the jar file to your Maven local repository like this:
 mvn install:install-file -Dfile=<path-to-file> -DgroupId=com.ibm.optim.oaas -DartifactId=api_java_client -Dversion=1.0-R1-SNAPSHOT -Dpackaging=jar
 ```
 
-9- (Optional) Signup and declare [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/) credentials.
-If you want to deploy the sample on the Cloud using the IBM Bluemix platform, the build procedure will do this for you. 
+### Prerequisites for Bluemix Deployment (Optional)
+If you want to deploy the sample on the Cloud using the IBM Bluemix platform, the build procedure will do this for you. Please follow these steps:
+
+1- Signup and declare a [MongoLab](https://mongolab.com/) database.
+Mongolab provides MongoDB-as-a-service so that it is easy to store data in the Cloud and use it from the server deployed to Bluemix. Once you have signed up, create a new database called 'trucking' and create a user database as required by MongoLab. Then indicate your connection parameters in  your `~/.m2/settings.xml` settings file like this:
+
+```xml
+       <profile>
+            <id>mongo</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+					<mongo.user>...</mongo.user>
+					<mongo.password>...</mongo.password>
+					<mongo.hosts>...</mongo.hosts>
+					<mongo.ports>...</mongo.ports>                
+            </properties>			
+        </profile>	
+```
+
+2- Signup and declare [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/) credentials.
+
+
 Copy your username and password in a Maven server declaration in your `~/.m2/settings.xml` settings file like this:
+
 ```xml
 <servers>
    <server>
@@ -121,9 +144,25 @@ Copy your username and password in a Maven server declaration in your `~/.m2/set
    </server>
 </servers>
 ```
+3- Identify your deployment region parameters.
+Bluemix has data centers in different regions and you will need to indicate which one to use. 
+Here is a list of some data centers, more may be added so you will need to refer to the Bluemix documentation.
 
-Then, create a qualifier that will make the route unique. If the qualifier is `mike`, the application
-will be deployed to `greentruck-mike.mybluemix.net`. To do so, declare a property in your  `~/.m2/settings.xml` setting file like this:
+| Region name 			| Region prefix 		| API target					| Domain              | 
+|-----------------------| ----------------------| ------------------------------|---------------------| 	
+| US South 				| us-south 				| api.ng.bluemix.net 			| mybluemix.net       | 
+| Europe United Kingdom | eu-gb 				| api.eu-gb.bluemix.net 		| eu-gb.mybluemix.net | 
+| Austrialia Sydney 	| au-syd 				| api.au-syd.bluemix.net 		| au-syd.mybluemix.net| 
+
+4- Declare the deployment parameters
+
+- cf.org: the Bluemix organization (usually your email address).
+- cf.urlQualifier: the qualifier that will make the route unique. If the qualifier is `mike`, the application will be deployed to `greentruck-mike.mybluemix.net`. 
+- cf.target: the Bluemix API target end point. This target depends on the region of your deployment as listed above. 
+- cf.domain: the application domain. This target depends on the region of your deployment as listed above.
+- cf.space: The Bluemix space to deploy the application to. If you have not created a space, in your Bluemix dashboard, click on `Create a Space` and call it `demo` as an example.
+
+The parameters must be declared in your  `~/.m2/settings.xml` setting file like this:
 ```xml
 <profile>
   <id>bluemix</id>
@@ -131,14 +170,14 @@ will be deployed to `greentruck-mike.mybluemix.net`. To do so, declare a propert
     <activeByDefault>true</activeByDefault>
   </activation>
   <properties>
-    <cf.org>...</cf.org>
-    <cf.urlQualifier>...</cf.urlQualifier>
+	<cf.org>...</cf.org>
+	<cf.urlQualifier>...</cf.urlQualifier>
+	<cf.target>...</cf.target>
+	<cf.domain>...</cf.domain>
+	<cf.space>...</cf.space>
   </properties>
 </profile>
 ```
-
-Finally, in your Bluemix dashboard, click on `Create a Space` and call it `demo`. The application will be deployed in this
-space.
 
 ### Build
 

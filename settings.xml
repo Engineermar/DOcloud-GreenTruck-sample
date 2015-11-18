@@ -20,7 +20,10 @@
             </activation>
             <properties>
                 <cf.org>...</cf.org>
-                <cf.urlQualifier>...</cf.urlQualifier>
+				<cf.urlQualifier>...</cf.urlQualifier>
+				<cf.target>...</cf.target>
+				<cf.domain>...</cf.domain>
+				<cf.space>...</cf.space>
             </properties>
         </profile>
 
@@ -30,8 +33,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <docloud.baseurl>...</docloud.baseurl>
-                <docloud.apikey.clientid>...</docloud.apikey.clientid>
+			  <docloud.baseurl>...</docloud.baseurl>
+			  <docloud.apikey.clientid>...</docloud.apikey.clientid> 
             </properties>
         </profile>
 
@@ -42,10 +45,20 @@
             </activation>
             <properties>
                 <wlp.licenseCode>...</wlp.licenseCode>
-            </properties>
+            </properties>			
         </profile>
+		
+		<profile>
+            <id>mongo</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+					<mongo.user>...</mongo.user>
+					<mongo.password>...</mongo.password>
+					<mongo.hosts>...</mongo.hosts>
+					<mongo.ports>...</mongo.ports>                
+            </properties>			
+        </profile>		
     </profiles>
 </settings>
-
-
-
