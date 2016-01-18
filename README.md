@@ -86,8 +86,12 @@ Copy this code in a Maven property in your `~/.m2/settings.xml` settings file li
 </profile>
 ```
 
-7- Get the IBM DOcloud base URL and an API key.
-Copy the base URL and the API key in Maven properties in your `~/.m2/settings.xml` settings file like this:
+7- Get the IBM DOcloud base URL and an API key, which are accessible on the 
+[Get API Key page](https://dropsolve-oaas.docloud.ibmcloud.com/dropsolve/api) once you 
+have registered and logged in to DOcloud. Copy the base URL and the API key 
+to the maven properties in your `~/.m2/settings.xml` settings file, where
+* `yourKey` is the API key (clientID) that you generate after registering.
+* `yourURL` is the base URL that you access after registering.
 ```xml
 <profile>
   <id>docloud</id>
@@ -95,8 +99,8 @@ Copy the base URL and the API key in Maven properties in your `~/.m2/settings.xm
     <activeByDefault>true</activeByDefault>
   </activation>
   <properties>
-      <docloud.baseurl>...</docloud.baseurl>
-      <docloud.apikey.clientid>...</docloud.apikey.clientid>
+      <docloud.baseurl>yourURL</docloud.baseurl>
+      <docloud.apikey.clientid>yourKey</docloud.apikey.clientid>
   </properties>
 </profile>
 ```
