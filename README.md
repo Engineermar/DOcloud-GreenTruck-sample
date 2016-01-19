@@ -54,7 +54,7 @@ Once installed, you can check that it is accessible using this command:
 java -version
 ```
 
-4- Install [Maven](https://Maven.apache.org/download.cgi).
+4- Install [Maven](https://Maven.apache.org/download.cgi) version 3 or above.
 Once installed, you can check that it is accessible using this command:
 ```
 mvn --version
@@ -86,8 +86,8 @@ Copy this code in a Maven property in your `~/.m2/settings.xml` settings file li
 </profile>
 ```
 
-7- Get the IBM DOcloud base URL and an API key, which are accessible on the 
-[Get API Key page](https://dropsolve-oaas.docloud.ibmcloud.com/dropsolve/api) once you 
+7- Get the IBM DOcloud base URL and an API key, which are accessible on the
+[Get API Key page](https://dropsolve-oaas.docloud.ibmcloud.com/dropsolve/api) once you 
 have registered and logged in to DOcloud. Copy the base URL and the API key 
 to the maven properties in your `~/.m2/settings.xml` settings file, where
 * `yourKey` is the API key (clientID) that you generate after registering.
@@ -152,11 +152,11 @@ Copy your username and password in a Maven server declaration in your `~/.m2/set
 Bluemix has data centers in different regions and you will need to indicate which one to use. 
 Here is a list of some data centers, more may be added so you will need to refer to the Bluemix documentation.
 
-| Region name 			| Region prefix 		| API target					| Domain              | 
+| Region name 			| Region prefix | API target                    | Domain              | 
 |-----------------------| ----------------------| ------------------------------|---------------------| 	
-| US South 				| us-south 				| api.ng.bluemix.net 			| mybluemix.net       | 
-| Europe United Kingdom | eu-gb 				| api.eu-gb.bluemix.net 		| eu-gb.mybluemix.net | 
-| Austrialia Sydney 	| au-syd 				| api.au-syd.bluemix.net 		| au-syd.mybluemix.net| 
+| US South 		| us-south 		| https://api.ng.bluemix.net 	| mybluemix.net       | 
+| Europe United Kingdom | eu-gb 		| https://api.eu-gb.bluemix.net | eu-gb.mybluemix.net | 
+| Austrialia Sydney 	| au-syd 		| https://api.au-syd.bluemix.net| au-syd.mybluemix.net| 
 
 4- Declare the deployment parameters
 
