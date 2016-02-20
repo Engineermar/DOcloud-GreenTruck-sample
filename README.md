@@ -78,35 +78,35 @@ mongo --version
    Copy this code in a Maven property in your `~/.m2/settings.xml` settings file like this:
 
    ```xml
-<profile>
-  <id>wlp</id>
-  <activation>
-    <activeByDefault>true</activeByDefault>
-  </activation>
-  <properties>
-	<wlp.licenseCode>...</wlp.licenseCode>
-  </properties>
-</profile>
+  <profile>
+    <id>wlp</id>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+    <properties>
+	  <wlp.licenseCode>...</wlp.licenseCode>
+    </properties>
+  </profile>
 ```
 
 7. Get the IBM DOcloud base URL and an API key, which are accessible on the
 [Get API Key page](https://dropsolve-oaas.docloud.ibmcloud.com/dropsolve/api) once you 
 have registered and logged in to DOcloud. Copy the base URL and the API key 
 to the maven properties in your `~/.m2/settings.xml` settings file, where
-* `yourKey` is the API key (clientID) that you generate after registering.
-* `yourURL` is the base URL that you access after registering.
+  * `yourKey` is the API key (clientID) that you generate after registering.
+  * `yourURL` is the base URL that you access after registering.
 
    ```xml
-<profile>
-  <id>docloud</id>
-  <activation>
-    <activeByDefault>true</activeByDefault>
-  </activation>
-  <properties>
+  <profile>
+    <id>docloud</id>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+    <properties>
       <docloud.baseurl>yourURL</docloud.baseurl>
       <docloud.apikey.clientid>yourKey</docloud.apikey.clientid>
-  </properties>
-</profile>
+    </properties>
+  </profile>
 ```
 
 8. Download and install the IBM DOcloud API for Java library.  
@@ -124,18 +124,18 @@ If you want to deploy the sample on the Cloud using the IBM Bluemix platform, th
    Mongolab provides MongoDB-as-a-service so that it is easy to store data in the Cloud and use it from the server deployed to Bluemix. Once you have signed up, create a new database called 'trucking' and create a user database as required by MongoLab. Then indicate your connection parameters in  your `~/.m2/settings.xml` settings file like this:
 
    ```xml
-       <profile>
-            <id>mongo</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-					<mongo.user>...</mongo.user>
-					<mongo.password>...</mongo.password>
-					<mongo.hosts>...</mongo.hosts>
-					<mongo.ports>...</mongo.ports>                
-            </properties>			
-        </profile>	
+  <profile>
+    <id>mongo</id>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+    <properties>
+      <mongo.user>...</mongo.user>
+			<mongo.password>...</mongo.password>
+			<mongo.hosts>...</mongo.hosts>
+			<mongo.ports>...</mongo.ports>                
+    </properties>			
+  </profile>	
 ```
 
 2. Signup and declare [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/) credentials.
@@ -143,13 +143,13 @@ If you want to deploy the sample on the Cloud using the IBM Bluemix platform, th
 Copy your username and password in a Maven server declaration in your `~/.m2/settings.xml` settings file like this:
 
    ```xml
-<servers>
-   <server>
+  <servers>
+    <server>
       <id>bluemix_prod</id>
   	  <username>...</username>
-	  <password>...</password>
-   </server>
-</servers>
+	    <password>...</password>
+    </server>
+  </servers>
 ```
 
 3. Identify your deployment region parameters.  
@@ -164,28 +164,28 @@ Copy your username and password in a Maven server declaration in your `~/.m2/set
 
 4. Declare the deployment parameters
 
-* cf.org: the Bluemix organization (usually your email address).
-* cf.urlQualifier: the qualifier that will make the route unique. If the qualifier is `mike`, the application will be deployed to `greentruck-mike.mybluemix.net`. 
-* cf.target: the Bluemix API target end point. This target depends on the region of your deployment as listed above. 
-* cf.domain: the application domain. This target depends on the region of your deployment as listed above.
-* cf.space: The Bluemix space to deploy the application to. If you have not created a space, in your Bluemix dashboard, click on `Create a Space` and call it `demo` as an example.
+  * cf.org: the Bluemix organization (usually your email address).
+  * cf.urlQualifier: the qualifier that will make the route unique. If the qualifier is `mike`, the application will be deployed to `greentruck-mike.mybluemix.net`. 
+  * cf.target: the Bluemix API target end point. This target depends on the region of your deployment as listed above. 
+  * cf.domain: the application domain. This target depends on the region of your deployment as listed above.
+  * cf.space: The Bluemix space to deploy the application to. If you have not created a space, in your Bluemix dashboard, click on `Create a Space` and call it `demo` as an example.
 
-The parameters must be declared in your  `~/.m2/settings.xml` setting file like this:  
+The parameters must be declared in your `~/.m2/settings.xml` setting file like this:  
 
    ```xml
-<profile>
-  <id>bluemix</id>
-  <activation>
-    <activeByDefault>true</activeByDefault>
-  </activation>
-  <properties>
-	<cf.org>...</cf.org>
-	<cf.urlQualifier>...</cf.urlQualifier>
-	<cf.target>...</cf.target>
-	<cf.domain>...</cf.domain>
-	<cf.space>...</cf.space>
-  </properties>
-</profile>
+  <profile>
+    <id>bluemix</id>
+    <activation>
+      <activeByDefault>true</activeByDefault>
+    </activation>
+    <properties>
+	    <cf.org>...</cf.org>
+	    <cf.urlQualifier>...</cf.urlQualifier>
+	    <cf.target>...</cf.target>
+	    <cf.domain>...</cf.domain>
+	    <cf.space>...</cf.space>
+    </properties>
+  </profile>
 ```
 
 ### Build
