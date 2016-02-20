@@ -169,7 +169,7 @@ If you want to deploy the sample on the Cloud using the IBM Bluemix platform, th
   * cf.domain: the application domain. This target depends on the region of your deployment as listed above.
   * cf.space: The Bluemix space to deploy the application to. If you have not created a space, in your Bluemix dashboard, click on `Create a Space` and call it `demo` as an example.
 
-The parameters must be declared in your `~/.m2/settings.xml` setting file like this:  
+  The parameters must be declared in your `~/.m2/settings.xml` setting file like this:  
 
    ```xml
   <profile>
