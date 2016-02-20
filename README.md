@@ -138,9 +138,8 @@ If you want to deploy the sample on the Cloud using the IBM Bluemix platform, th
   </profile>	
 ```
 
-2. Signup and declare [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/) credentials.
-
-Copy your username and password in a Maven server declaration in your `~/.m2/settings.xml` settings file like this:
+2. Signup and declare [IBM Bluemix](http://www.ibm.com/cloud-computing/bluemix/) credentials.  
+  Copy your username and password in a Maven server declaration in your `~/.m2/settings.xml` settings file like this:
 
    ```xml
   <servers>
@@ -154,15 +153,15 @@ Copy your username and password in a Maven server declaration in your `~/.m2/set
 
 3. Identify your deployment region parameters.  
    Bluemix has data centers in different regions and you will need to indicate which one to use.  
-   Here is a list of some data centers, more may be added so you will need to refer to the Bluemix documentation.
+   Here is a list of some data centers, more may be added so you will need to refer to the Bluemix documentation.  
 
-| Region name 			| Region prefix | API target                    | Domain              | 
+   | Region name 			| Region prefix | API target                    | Domain              | 
 |-----------------------| ----------------------| ------------------------------|---------------------| 	
 | US South 		| us-south 		| https://api.ng.bluemix.net 	| mybluemix.net       | 
 | Europe United Kingdom | eu-gb 		| https://api.eu-gb.bluemix.net | eu-gb.mybluemix.net | 
 | Austrialia Sydney 	| au-syd 		| https://api.au-syd.bluemix.net| au-syd.mybluemix.net| 
 
-4. Declare the deployment parameters
+4. Declare the deployment parameters  
 
   * cf.org: the Bluemix organization (usually your email address).
   * cf.urlQualifier: the qualifier that will make the route unique. If the qualifier is `mike`, the application will be deployed to `greentruck-mike.mybluemix.net`. 
