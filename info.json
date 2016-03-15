@@ -5,5 +5,5 @@
 	"development": [ "Java" ],
 	"category": [ {"APPLICATION":["Web Application"]} ],
 	"industry": [ "Transportation" ],
-	"abstract": "A web application showing how to solve a simple transportation optimization problem. The application demonstrates how to integrate the IBM DOcloud Java client with data stored in MongoDB and a web frontend developed with AngularJS."
+	"abstract": "A web application that demonstrates how to solve a transportation optimization problem, integrating the IBM DOcloud Java client with data stored in MongoDB and using a web front end developed with AngularJS."
 }
