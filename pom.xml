@@ -145,6 +145,7 @@
 							<target>
 								<unzip src="${project.build.directory}/${project.name}-server.zip" dest="${project.build.directory}/tmp"/>
 								<copy overwrite="true" file="src/main/wlp/server-bluemix.xml" tofile="${project.build.directory}/tmp/wlp/usr/servers/defaultServer/server.xml"/>
+								<delete file="${project.build.directory}/tmp/wlp/usr/servers/defaultServer/server.env"/>
 								<zip basedir="${project.build.directory}/tmp" destfile="${project.build.directory}/${project.name}-server-bluemix.zip"/>
 							</target>
 						</configuration>
@@ -268,14 +269,14 @@
 					<space>${cf.space}</space>
 					<memory>512</memory>
 					<services>
-						<service>
+			 		<service>
 							<name>docloud</name>
 							<label>user-provided</label>
 							<userProvidedCredentials>
 								<url>${docloud.baseurl}</url>
 								<client_id>${docloud.apikey.clientid}</client_id>
 							</userProvidedCredentials>
-						</service>
+						</service>  
 						<service>
 							<name>mongo-greentruck</name>
 							<label>user-provided</label>

@@ -129,4 +129,23 @@ public class Environment {
 		return null;
 	}
 
+	public JsonNode getDOcloud() {
+		if (vcap_services != null) {
+			try {
+				// iterate over service types (names)
+				for (Iterator<String> it = vcap_services.fieldNames(); it
+						.hasNext();) {
+					String serviceType = it.next();
+					if (serviceType.startsWith("docloud")) {
+						JsonNode docloudType = vcap_services.get(serviceType);
+						return docloudType.get(0);
+					}
+				}
+			} catch (Exception e) {
+				LOG.log(Level.SEVERE, "Exception parsing VCAP_SERVICES", e);
+			}
+		}
+		return null;
+	}
+	
 }

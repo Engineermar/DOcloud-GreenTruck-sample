@@ -3,7 +3,6 @@ package com.ibm.optim.oaas.sample.trucking.rest;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
@@ -37,9 +36,6 @@ import com.wordnik.swagger.annotations.ApiResponses;
 @Path("trucking")
 @Api(value = "/trucking", description = "Trucking sample API")
 public class TruckingRestResource {
-
-	private static Logger LOG = Logger.getLogger(TruckingRestResource.class
-			.getName());
 
 	TruckingManager manager;
 

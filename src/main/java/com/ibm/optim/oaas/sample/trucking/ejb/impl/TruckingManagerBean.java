@@ -96,20 +96,32 @@ public class TruckingManagerBean implements TruckingManager {
 	public void setUp() {
 
 		// look for the DOcloud service configuration
-		JsonNode docloud = Environment.getInstance().getService("docloud");
-		if (docloud == null) {
-			LOG.severe("DOcloud config not found");
-		} else {
+		JsonNode docloud = Environment.getInstance().getDOcloud();
+		if (docloud!=null){
 			JsonNode credential = docloud.get("credentials");
 			String url = credential.get("url").asText();
 			String client_id = credential.get("client_id").asText();
 
-			LOG.log(Level.INFO, "Using  DOcloud at {0}", url);
+			LOG.log(Level.INFO, "Using Bluemix DOcloud at {0}", url);
 
 			// creates the DOcloud client
 			jobclient = JobClientFactory.createDefault(url, client_id);
+			
+		} else {
+			 docloud = Environment.getInstance().getService("docloud");
+			if (docloud == null) {
+				LOG.severe("DOcloud config not found");
+			} else {
+				JsonNode credential = docloud.get("credentials");
+				String url = credential.get("url").asText();
+				String client_id = credential.get("client_id").asText();
+	
+				LOG.log(Level.INFO, "Using user-defined DOcloud at {0}", url);
+	
+				// creates the DOcloud client
+				jobclient = JobClientFactory.createDefault(url, client_id);
+			}
 		}
-
 		// get the OPL model file
 		modFile = TruckingManagerBean.class.getResource("truck.mod");
 		if (modFile == null) {
