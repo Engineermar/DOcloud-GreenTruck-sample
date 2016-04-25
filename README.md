@@ -1,4 +1,4 @@
-# IBM DOcloud GreenTruck Sample
+# IBM DOcplexcloud GreenTruck Sample
 
 ## Optimization Problem
 
@@ -18,12 +18,12 @@ The assumptions are:
 
 ## Architecture
 
-This sample shows how to build a simple web application that integrates with IBM DOcloud services:
+This sample shows how to build a simple web application that integrates with IBM DOcplexcloud services:
 * The webserver is written in Java and leverages the IBM Websphere Liberty runtime.
 * The client uses the AngularJS framework to create simple pages and interact with the server using custom REST APIs.
 * The data is stored in a MongoDB JSON datastore.
-* The data and results are streamed back and forth between DOcloud and the MongoDB datastore.
-* There is a single DOcloud job running at a time, and a single solution is stored in the database.
+* The data and results are streamed back and forth between DOcplexcloud and the MongoDB datastore.
+* There is a single DOcplexcloud job running at a time, and a single solution is stored in the database.
 * Websockets are used to update the clients in real time for job submission and solution availability.
 
 ## Installation
@@ -89,9 +89,9 @@ mongo --version
   </profile>
 ```
 
-7. Get the IBM DOcloud base URL and an API key, which are accessible on the
+7. Get the IBM DOcplexcloud base URL and an API key, which are accessible on the
 [Get API Key page](https://dropsolve-oaas.docloud.ibmcloud.com/dropsolve/api) once you 
-have registered and logged in to DOcloud. Copy the base URL and the API key 
+have registered and logged in to DOcplexcloud. Copy the base URL and the API key 
 to the maven properties in your `~/.m2/settings.xml` settings file, where
   * `yourKey` is the API key (clientID) that you generate after registering.
   * `yourURL` is the base URL that you access after registering.
@@ -109,7 +109,7 @@ to the maven properties in your `~/.m2/settings.xml` settings file, where
   </profile>
 ```
 
-8. Download and install the IBM DOcloud API for Java library.  
+8. Download and install the IBM DOcplexcloud API for Java library.  
    You can download the library from the [developer center](https://developer.ibm.com/docloud/docs/java-client-api/java-client-library/).  
    Extract the jar file starting with `docloud_api_java_client` from the zip file (do not take the javadoc jar file). Then add the jar file to your Maven local repository like this:
 
