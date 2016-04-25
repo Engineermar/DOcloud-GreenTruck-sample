@@ -1,9 +1,9 @@
 {
 	"provider": ["IBM"], 
-	"name":  "DOcloud GreenTruck sample" ,
+	"name":  "DOcplexcloud GreenTruck sample" ,
 	"model": [ "OPL-CPLEX" ],
 	"development": [ "Java" ],
 	"category": [ {"APPLICATION":["Web Application"]} ],
 	"industry": [ "Transportation" ],
-	"abstract": "A web application that demonstrates how to solve a transportation optimization problem, integrating the IBM DOcloud Java client with data stored in MongoDB and using a web front end developed with AngularJS."
+	"abstract": "A web application that demonstrates how to solve a transportation optimization problem, integrating the IBM DOcplexcloud Java client with data stored in MongoDB and using a web front end developed with AngularJS."
 }
