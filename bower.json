@@ -1,5 +1,5 @@
 {
-  "name": "IBM DOcloud GreenTruck Sample",
+  "name": "docplexcloudgreentrucksample",
   "version": "0.0.0",
   "license": "Apache 2.0",
   "ignore": [
@@ -19,5 +19,8 @@
     "d3": "latest",
     "angular-smart-table": "latest",
     "angular-websocket": "latest"
+  },
+  "resolutions": {
+    "angular": "1.5.9"
   }
 }
