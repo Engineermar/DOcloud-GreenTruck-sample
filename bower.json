@@ -10,15 +10,15 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "latest",
-    "jquery": "latest",
-    "angular": "latest",
-    "angular-route": "latest",
-    "swagger-ui": "latest",
-    "font-awesome": "latest",
-    "d3": "latest",
-    "angular-smart-table": "latest",
-    "angular-websocket": "latest"
+    "bootstrap": "3.3.7",
+    "jquery": "3.1.1",
+    "angular": "1.5.9",
+    "angular-route": "1.5.9",
+    "swagger-ui": "2.2.8",
+    "font-awesome": "4.7.0",
+    "d3": "3.5.17",
+    "angular-smart-table": "2.1.8",
+    "angular-websocket": "2.0.0"
   },
   "resolutions": {
     "angular": "1.5.9"
