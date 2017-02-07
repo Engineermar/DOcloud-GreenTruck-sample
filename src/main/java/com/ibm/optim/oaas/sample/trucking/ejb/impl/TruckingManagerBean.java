@@ -51,6 +51,8 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 import com.mongodb.util.JSON;
 
@@ -66,7 +68,7 @@ public class TruckingManagerBean implements TruckingManager {
 	private static Logger LOG = Logger.getLogger(TruckingManagerBean.class
 			.getName());
 
-	@Resource(name = "mongo/truckingDB")
+	MongoClient mongoClient;
 	DB mongoDB;
 
 	@Resource(lookup = "concurrent/docloud")
@@ -89,15 +91,49 @@ public class TruckingManagerBean implements TruckingManager {
 	 * Default constructor.
 	 */
 	public TruckingManagerBean() {
-
+        super();
 	}
 
+	@SuppressWarnings("deprecation")
 	@PostConstruct
 	public void setUp() {
+		// look for MongoDB settings 
+		JsonNode mongoDBSettings = Environment.getInstance().getMongoDBSettings();
+		if (mongoDBSettings!=null){	
+			String host = mongoDBSettings.get("hosts").asText();
+			String password = mongoDBSettings.get("password").asText();
+			Integer ports = mongoDBSettings.get("ports").asInt();
+			String user = mongoDBSettings.get("user").asText();
+			String uriString = "mongodb://" + user + ":" + password + "@" + host + ":" + ports + "/trucking";
+		    MongoClientURI uri = new MongoClientURI(uriString);
+			try {
+				//Use Mongo Java APIs to establish connectivity to MongoDB
+				mongoClient = new MongoClient(uri);
+				mongoDB = mongoClient.getDB("trucking");
 
+			} catch (Exception e) {
+				LOG.log(Level.SEVERE, "failed to get MongoDB instance: {0}", e.getLocalizedMessage());
+			}
+			
+		} else {
+			LOG.log(Level.INFO, "No MongoDB settings found: use of default local settings");
+			try {
+				//Use Mongo Java APIs to establish connectivity to MongoDB
+				mongoClient = new MongoClient( "localhost" , 27017 );
+				// create database if doesn't exist
+				mongoDB = mongoClient.getDB("truckingDB");
+
+			} catch (Exception e) {
+				LOG.log(Level.SEVERE, "failed to get MongoDB instance: {0}", e.getLocalizedMessage());
+			}
+			
+		}
+		
 		// look for the DOcloud service configuration
 		JsonNode docloud = Environment.getInstance().getDOcloud();
+		
 		if (docloud!=null){
+			LOG.log(Level.INFO, "DOcloud credentials" + docloud.get("credentials"));
 			JsonNode credential = docloud.get("credentials");
 			String url = credential.get("url").asText();
 			String client_id = credential.get("client_id").asText();
@@ -112,6 +148,7 @@ public class TruckingManagerBean implements TruckingManager {
 			if (docloud == null) {
 				LOG.severe("DOcloud config not found");
 			} else {
+				LOG.log(Level.INFO, "DOcloud credentials" + docloud.get("credentials"));
 				JsonNode credential = docloud.get("credentials");
 				String url = credential.get("url").asText();
 				String client_id = credential.get("client_id").asText();
@@ -145,9 +182,22 @@ public class TruckingManagerBean implements TruckingManager {
 		monitorService.scheduleAtFixedRate(monitorJob, 0, 2, TimeUnit.SECONDS);
 
 		// prepare the shipment collection for easy access
-		shipments = JacksonDBCollection.wrap(
-				mongoDB.getCollection("shipments"), Shipment.class,
-				String.class);
+		try {
+			shipments = JacksonDBCollection.wrap(
+					mongoDB.getCollection("shipments"), Shipment.class,
+					String.class);
+			
+		} catch (Exception e) {
+			if (e.getCause().getClass().equals(AssertionError.class)) {
+				// handle AssertionError
+				LOG.log(Level.SEVERE, "Wrapping shipments collection failed: {0}", e.getCause().getLocalizedMessage());
+			} else {
+				// handle the exception Exception
+				LOG.log(Level.SEVERE, "Wrapping shipments collection failed: {0}: {1}",
+						new Object[] { e.getClass().getName(), e.getLocalizedMessage() });
+				e.getCause().printStackTrace();
+			}
+		} 
 	}
 
 	/**
