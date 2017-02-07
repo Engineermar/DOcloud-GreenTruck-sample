@@ -60,6 +60,7 @@ public class Environment {
 	 * @return the JSON data.
 	 */
 	protected JsonNode parseJsonVar(String vcap) {
+		LOG.log(Level.WARNING, "parseJsonVar::vcap:", vcap);
 		if (vcap == null) {
 			return null;
 		}
@@ -139,6 +140,29 @@ public class Environment {
 					if (serviceType.startsWith("docloud")) {
 						JsonNode docloudType = vcap_services.get(serviceType);
 						return docloudType.get(0);
+					}
+				}
+			} catch (Exception e) {
+				LOG.log(Level.SEVERE, "Exception parsing VCAP_SERVICES", e);
+			}
+		}
+		return null;
+	}
+
+	public JsonNode getMongoDBSettings() {
+		if (vcap_services != null) {
+			try {
+				// iterate over service types (object)
+				for (Iterator<JsonNode> it = vcap_services.elements(); it.hasNext();) {
+					// iterate over service entries of that type (array)
+					for (Iterator<JsonNode> ite = it.next().elements(); ite.hasNext();) {
+						JsonNode service = ite.next();
+						JsonNode credentials = service.get("credentials");
+						if (credentials != null) {
+							JsonNode credentialName = credentials.get("hosts");
+							if (credentialName != null)
+								return credentials;
+						}
 					}
 				}
 			} catch (Exception e) {
