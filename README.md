@@ -73,7 +73,7 @@ mongo --version
 
 6. Get an IBM WAS Liberty license.  
    During the build, the IBM WAS Liberty runtime will be downloaded and used to package the server. You will need to review and agree to the 
-[license](http://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/16.0.0.3/lafiles/runtime/en.html).  
+[license](https://public.dhe.ibm.com/ibmdl/export/pub/software/websphere/wasdev/downloads/wlp/16.0.0.4/lafiles/runtime/en.html).  
    Note the code at the end of the license file following `D/N:`.  
    Copy this code in a Maven property in your `~/.m2/settings.xml` settings file like this:
 
