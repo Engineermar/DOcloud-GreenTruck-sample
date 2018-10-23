@@ -1,51 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://java.sun.com/xml/ns/javaee"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-	version="3.0"> 
-	
-	<display-name>api_greentruck_web_java</display-name>
-	<module-name>api_greentruck_web_java</module-name>
-	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
-	</welcome-file-list>
-    
-	<servlet>
-		<description>JAX-RS Tools Generated - Do not modify</description>
-		<servlet-name>JAX-RS Servlet</servlet-name>
-		<servlet-class>com.ibm.websphere.jaxrs.server.IBMRestServlet</servlet-class>
-		<init-param>
-			<param-name>javax.ws.rs.Application</param-name>
-			<param-value>com.ibm.optim.oaas.sample.trucking.rest.TruckingRestApplication</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>JAX-RS Servlet</servlet-name>
-		<url-pattern>/rest/v1/*</url-pattern>
-	</servlet-mapping>
-           
-   	<servlet>
-		<servlet-name>DefaultJaxrsConfig</servlet-name>
-		<servlet-class>com.wordnik.swagger.jaxrs.config.DefaultJaxrsConfig</servlet-class>
-		<init-param>
-			<param-name>api.version</param-name>
-			<param-value>1.0.0</param-value>
-		</init-param>
-		<init-param>
-            <param-name>swagger.api.basepath</param-name>
-            <param-value>/rest/v1</param-value>
-        </init-param>
-		<load-on-startup>2</load-on-startup>
-	</servlet>
-	
-  <ejb-local-ref> 
-	  <ejb-ref-name>TruckingManager</ejb-ref-name> 
-	  <ejb-ref-type>Session</ejb-ref-type> 
-	  <local>com.ibm.optim.oaas.sample.trucking.ejb.TruckingManager</local> 
-	  <ejb-link>TruckingManager</ejb-link>
-  </ejb-local-ref> 
-  
-   
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>api_greentruck_web_java</display-name>
+  <module-name>api_greentruck_web_java</module-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  <ejb-local-ref>
+    <ejb-ref-name>TruckingManager</ejb-ref-name>
+    <ejb-ref-type>Session</ejb-ref-type>
+    <local>com.ibm.optim.oaas.sample.trucking.ejb.TruckingManager</local>
+    <ejb-link>TruckingManager</ejb-link>
+  </ejb-local-ref>
 </web-app>

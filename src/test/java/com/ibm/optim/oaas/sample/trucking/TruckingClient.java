@@ -2,119 +2,147 @@ package com.ibm.optim.oaas.sample.trucking;
 
 import java.util.List;
 
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.ibm.optim.oaas.sample.trucking.model.Hub;
 import com.ibm.optim.oaas.sample.trucking.model.Shipment;
 import com.ibm.optim.oaas.sample.trucking.model.Solution;
 import com.ibm.optim.oaas.sample.trucking.model.Spoke;
 import com.ibm.optim.oaas.sample.trucking.model.TruckType;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.GenericType;
-import com.sun.jersey.api.client.UniformInterfaceException;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.config.ClientConfig;
-import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 /**
  * Simple client to write unit tests.
  *
  */
 public class TruckingClient {
+  private final Client client;
+  private final WebTarget base;
 
-	Client client;
-	String baseurl;
-	WebResource base;
+  public TruckingClient(final String baseurl) {
+    this.client = ClientBuilder.newBuilder().register(JacksonJsonProvider.class).build();
+    this.base = client.target(baseurl);
+  }
 
-	public TruckingClient(String baseurl) {
-		ClientConfig config = new DefaultClientConfig();
-		config.getClasses().add(JacksonJsonProvider.class);
-		this.client = Client.create(config);
-		this.baseurl = baseurl;
-		this.base = client.resource(baseurl);
-	}
+  private Entity<?> getEmptyEntity() {
+    return Entity.text("");
+  }
 
-	public void initialize() {
-		base.path("rest/v1/trucking/initialize").post();
+  public void initialize() {
+    base
+    .path("rest/v1/trucking/initialize")
+    .request()
+    .post(getEmptyEntity());
+  }
 
-	}
+  public List<Shipment> getShipments() {
+    final List<Shipment> shipments = base
+        .path("rest/v1/trucking/shipments")
+        .request()
+        .accept(MediaType.APPLICATION_JSON)
+        .get(new GenericType<List<Shipment>>() {});
+    return shipments;
+  }
 
-	public List<Shipment> getShipments() {
-		List<Shipment> response = base.path("rest/v1/trucking/shipments")
-				.accept("application/json")
-				.get(new GenericType<List<Shipment>>() {
-				});
-		return response;
-	}
+  public Shipment addShipment(final Shipment s) {
+    final Shipment shipment = base
+        .path("rest/v1/trucking/shipments")
+        .request()
+        .header("content-type", "application/json")
+        .accept("application/json")
+        .post(Entity.entity(s, MediaType.APPLICATION_JSON), Shipment.class);
+    return shipment;
+  }
 
-	public Shipment addShipment(Shipment s) {
-		Shipment response = base.path("rest/v1/trucking/shipments")
-				.header("content-type", "application/json")
-				.accept("application/json").post(Shipment.class, s);
-		return response;
-	}
+  public void deleteShipments() {
+    base
+    .path("rest/v1/trucking/shipments")
+    .request()
+    .delete();
+  }
 
-	public void deleteShipments() {
-		base.path("rest/v1/trucking/shipments").delete();
-	}
+  public Shipment getShipment(final String id) {
+    final Shipment shipment = base
+        .path("rest/v1/trucking/shipments")
+        .path(id)
+        .request()
+        .accept(MediaType.APPLICATION_JSON)
+        .get(Shipment.class);
+    return shipment;
+  }
 
-	public Shipment getShipment(String id) {
-		try {
-			Shipment response = base.path("rest/v1/trucking/shipments")
-					.path(id).accept("application/json").get(Shipment.class);
-			return response;
-		} catch (UniformInterfaceException e) {
-			if (e.getResponse().getStatus() == 404)
-				return null;
-			else
-				throw e;
-		}
-	}
+  public Shipment updateShipment(final Shipment s) {
+    final Shipment response = base
+        .path("rest/v1/trucking/shipments")
+        .path(s.getId())
+        .request()
+        .header("content-type", MediaType.APPLICATION_JSON)
+        .accept(MediaType.APPLICATION_JSON)
+        .get(Shipment.class);
+    return response;
+  }
 
-	public Shipment updateShipment(Shipment s) {
-		Shipment response = base.path("rest/v1/trucking/shipments")
-				.path(s.getId()).header("content-type", "application/json")
-				.accept("application/json").get(Shipment.class);
-		return response;
-	}
+  public void deleteShipment(final String id) {
+    base
+    .path("rest/v1/trucking/shipments")
+    .path(id)
+    .request()
+    .delete();
+  }
 
-	public void deleteShipment(String id) {
-		base.path("rest/v1/trucking/shipments").path(id).delete();
-	}
+  public void solve() {
+    base
+    .path("rest/v1/trucking/solve")
+    .request()
+    .post(getEmptyEntity());
+  }
 
-	public void solve() {
-		base.path("rest/v1/trucking/solve").post();
-	}
+  public List<Hub> getHubs() {
+    final List<Hub> hubs = base
+        .path("rest/v1/trucking/hubs")
+        .request()
+        .accept(MediaType.APPLICATION_JSON)
+        .get(new GenericType<List<Hub>>() {});
+    return hubs;
+  }
 
-	List<Hub> getHubs() {
-		List<Hub> response = base.path("rest/v1/trucking/hubs")
-				.accept("application/json").get(new GenericType<List<Hub>>() {
-				});
-		return response;
-	}
+  public List<Spoke> getSpokes() {
+    final List<Spoke> spokes = base
+        .path("rest/v1/trucking/spokes")
+        .request()
+        .accept(MediaType.APPLICATION_JSON)
+        .get(new GenericType<List<Spoke>>() {});
+    return spokes;
+  }
 
-	List<Spoke> getSpokes() {
-		List<Spoke> response = base.path("rest/v1/trucking/spokes")
-				.accept("application/json").get(new GenericType<List<Spoke>>() {
-				});
-		return response;
-	}
+  public List<TruckType> getTruckTypes() {
+    final List<TruckType> truckTypes = base
+        .path("rest/v1/trucking/truckTypes")
+        .request()
+        .accept(MediaType.APPLICATION_JSON)
+        .get(new GenericType<List<TruckType>>() {});
+    return truckTypes;
+  }
 
-	List<TruckType> getTruckTypes() {
-		List<TruckType> response = base.path("rest/v1/trucking/truckTypes")
-				.accept("application/json")
-				.get(new GenericType<List<TruckType>>() {
-				});
-		return response;
-	}
+  public Solution getSolution() {
+    final Solution solution = base
+        .path("rest/v1/trucking/solution")
+        .request()
+        .accept(MediaType.APPLICATION_JSON)
+        .get(Solution.class);
+    return solution;
+  }
 
-	public Solution getSolution() {
-		Solution response = base.path("rest/v1/trucking/solution")
-				.accept("application/json").get(Solution.class);
-		return response;
-	}
-
-	public void deleteSolution(String id) {
-		base.path("rest/v1/trucking/solution").path(id).delete();
-	}
-
+  public void deleteSolution(final String id) {
+    base
+    .path("rest/v1/trucking/solution")
+    .path(id)
+    .request()
+    .delete();
+  }
 }

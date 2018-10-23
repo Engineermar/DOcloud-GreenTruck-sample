@@ -7,51 +7,36 @@ import java.util.logging.Logger;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.ibm.optim.oaas.sample.trucking.ejb.TruckingManager;
-import com.wordnik.swagger.jaxrs.listing.ApiDeclarationProvider;
-import com.wordnik.swagger.jaxrs.listing.ApiListingResourceJSON;
-import com.wordnik.swagger.jaxrs.listing.ResourceListingProvider;
 
 /**
  * REST application.
  */
+@ApplicationPath("/rest/v1/*")
 public class TruckingRestApplication extends Application {
+  private static final Logger LOG = Logger.getLogger(TruckingRestApplication.class.getName());
 
-	private static Logger LOG = Logger.getLogger(TruckingRestApplication.class
-			.getName());
+  @Override
+  public Set<Object> getSingletons() {
+    final Set<Object> s = new HashSet<>();
 
-	@Override
-	public Set<Class<?>> getClasses() {
-		Set<Class<?>> classes = new HashSet<Class<?>>();
-		classes.add(ApiDeclarationProvider.class);
-		classes.add(ApiListingResourceJSON.class);
-		classes.add(ResourceListingProvider.class);
+    InitialContext ctx;
+    try {
+      ctx = new InitialContext();
+      final TruckingManager manager = (TruckingManager) ctx.lookup("java:comp/env/TruckingManager");
+      s.add(new TruckingRestResource(manager));
+    }
+    catch (final NamingException e) {
+      LOG.log(Level.SEVERE, e.getLocalizedMessage(), e);
+    }
+    s.add(new JacksonJsonProvider());
 
-		return classes;
-	}
+    LOG.log(Level.INFO, "REST API initialized.");
 
-	@Override
-	public Set<Object> getSingletons() {
-
-		Set<Object> s = new HashSet<Object>();
-
-		InitialContext ctx;
-		try {
-			ctx = new InitialContext();
-			TruckingManager manager = (TruckingManager) ctx
-					.lookup("java:comp/env/TruckingManager");
-			s.add(new TruckingRestResource(manager));
-
-		} catch (NamingException e) {
-			LOG.log(Level.SEVERE, e.getLocalizedMessage(), e);
-		}
-		s.add(new JacksonJsonProvider());
-
-		LOG.log(Level.INFO, "REST API initialized.");
-
-		return s;
-	}
+    return s;
+  }
 }

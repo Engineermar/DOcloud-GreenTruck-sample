@@ -1,37 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<server description="new server">
-    <!-- Enable features -->
-    <featureManager>
-    	<feature>mongodb-2.0</feature>
-		<feature>ejbLite-3.2</feature>
-        <feature>concurrent-1.0</feature>
-        <feature>jaxrs-2.0</feature>
-        <feature>json-1.0</feature>
-        <feature>localConnector-1.0</feature>
-        <feature>jsf-2.2</feature>        
-        <feature>websocket-1.1</feature>
-    </featureManager>
+<server description="Green Truck">
+  <featureManager>
+    <feature>mongodb-2.0</feature>
+    <feature>ejbLite-3.2</feature>
+    <feature>concurrent-1.0</feature>
+    <feature>jaxrs-2.0</feature>
+    <feature>localConnector-1.0</feature>
+    <feature>websocket-1.1</feature>
+  </featureManager>
 
-    <logging consoleLogLevel="INFO"></logging>
-    
-    <managedExecutorService jndiName="concurrent/docloud"/>
+  <applicationMonitor dropinsEnabled="false" />
 
-    <managedScheduledExecutorService jndiName="concurrent/monitor"/>
-    
-    <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint"/>
+  <logging consoleLogLevel="INFO"></logging>
 
-	<library id="mongo-lib">
-		 <fileset dir='${server.config.dir}/lib' id='mongo-fileset' 
-	           includes='mongo-java-driver.jar'/>   
-	</library>
-	
- 	<mongo hostNames="localhost" id="mongo-greentruck" libraryRef="mongo-lib" ports="27017"/>
- 	
-	<mongoDB databaseName="trucking" jndiName="mongo/truckingDB" mongoRef="mongo-greentruck"/>
+  <managedExecutorService jndiName="concurrent/docloud" />
 
-  <application id="greentruck" location="greentruck.war" name="greentruck" type="war" context-root="/" >
-    <classloader commonLibraryRef="mongo-lib"/>
-   </application>
-    
-    
+  <managedScheduledExecutorService jndiName="concurrent/monitor" />
+
+  <httpEndpoint httpPort="9080" httpsPort="9443" id="defaultHttpEndpoint" />
+
+  <library id="mongo-lib">
+    <fileset dir='${server.config.dir}/lib' id='mongo-fileset' includes='mongo-java-driver.jar' />
+  </library>
+
+  <mongo hostNames="localhost" id="mongo-greentruck" libraryRef="mongo-lib" ports="27017" />
+
+  <mongoDB databaseName="trucking" jndiName="mongo/truckingDB" mongoRef="mongo-greentruck" />
+
+  <application id="greentruck" location="greentruck.war" name="greentruck" type="war" context-root="/">
+    <classloader commonLibraryRef="mongo-lib" />
+  </application>
 </server>
